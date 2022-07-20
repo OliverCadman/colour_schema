@@ -4,6 +4,10 @@ const randomHexGenerator = () => {
     .padStart(6,'0');
 };
 
+const getSchemeURL = (hex) => {
+    return `https://www.thecolorapi.com/scheme?hex=${hex}&mode=analogic-complement`;
+}
+
 // Detects when a color is too dark to contrast
 // against the foreground text.
 const isColorDark = (color) => {
@@ -22,4 +26,4 @@ const isColorDark = (color) => {
   }
 };
 
-export { randomHexGenerator, isColorDark };
+export { randomHexGenerator, isColorDark, getSchemeURL };
