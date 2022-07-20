@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const ColorSchemeContainer = styled.div `
     ${'' /* position: relative; */}
-    height: calc(100% - 56px);
+    height: 100%;
 `
 
 export const ColorSchemeWrapper = styled.div `
-   height: 100%;
+   height: calc(100% - 100px);
    width: 100%;
    position: absolute;
 `
@@ -18,10 +18,13 @@ export const ColorWrapper = styled.div `
     position: absolute;
     display: grid;
     place-items: center;
+    box-shadow: 1rem 1rem 20px #000;
 `
 
 export const ColorName = styled.h4 `
     font-family: 'Dancing Script', sans-serif;
     font-size: 1.75rem;
+
+    color: ${props => props.colorIsDark ? 'white' : 'black'}
 `
 
