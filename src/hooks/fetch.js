@@ -5,6 +5,7 @@ export const useFetch = (url) => {
     const [state, setState] = useState([]);
 
     const getItems = async () => {
+        setLoading(true);
         const response = await fetch(url);
         const data = await response.json();
         setState(data);

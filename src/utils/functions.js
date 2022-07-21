@@ -4,8 +4,12 @@ const randomHexGenerator = () => {
     .padStart(6,'0');
 };
 
-const getSchemeURL = (hex) => {
-    return `https://www.thecolorapi.com/scheme?hex=${hex}&mode=analogic-complement`;
+const getSchemeURL = (hex, mode) => {
+    if (mode) {
+        return `https://www.thecolorapi.com/scheme?hex=${hex}&mode=${mode}&named=true`
+    } else {
+            return `https://www.thecolorapi.com/scheme?hex=${hex}&mode=triad&named=true`;
+    }
 }
 
 // Detects when a color is too dark to contrast
