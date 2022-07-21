@@ -12,7 +12,7 @@ import {
   ButtonContainer,
 } from "./Wrapper.styles";
 import Colour from "./Colour";
-import { isColorDark } from "../../utils/functions";
+import { isColorDark, copyCSSToClipboard } from "../../utils/functions";
 
 // Get a random hex value to use as query param in API call.
 let randomHex = randomHexGenerator();
@@ -97,6 +97,11 @@ const Wrapper = () => {
             </Button>
           </ButtonContainer>
         </form>
+          <Button
+            onClick={() => {copyCSSToClipboard(scheme.colors)}}
+          >
+            Copy To Clipboard
+          </Button>
       </SchemeOptionsContainer>
       <section>
         <ColorSchemeWrapper>
