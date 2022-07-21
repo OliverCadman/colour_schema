@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useFetch } from "../../hooks/fetch";
 import { getSchemeURL, randomHexGenerator } from "../../utils/functions";
 import {
@@ -51,6 +51,10 @@ const Wrapper = () => {
       buttonRef.current.style.backgroundColor = "#6495ed";
     }
   };
+
+  useEffect(() => {
+    document.title = "Color Schema";
+  }, [])
 
   // Used to create dynamic positioning of color divs
   // Increment 20 to count in map method below.
