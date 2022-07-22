@@ -8,11 +8,12 @@ import {
   SchemeModeWrapper,
   SchemeModeLabel,
   SchemeModeSelect,
-  Button,
-  ButtonContainer,
+  ButtonContainer
 } from "./Wrapper.styles";
 import Colour from "./Colour";
-import { isColorDark, copyCSSToClipboard } from "../../utils/functions";
+import Button from "./Button";
+import Popover from "./Popover";
+import { isColorDark, getHex, getRGB } from "../../utils/functions";
 
 // Get a random hex value to use as query param in API call.
 let randomHex = randomHexGenerator();
@@ -32,6 +33,9 @@ const schemeModes = [
 const Wrapper = () => {
   const [{ loading, state: scheme }, getItems] = useFetch(schemeURL);
   const [schemeMode, setSchemeMode] = useState("");
+  const [cssCopied, setCssCopied] = useState(false);
+  const [location, setLocation] = useState({});
+  const [inProp, setInProp] = useState(false);
   const buttonRef = useRef();
 
   // onClick handler generates a new color palette
@@ -52,9 +56,40 @@ const Wrapper = () => {
     }
   };
 
+
+  const copyCSSToClipboard = (scheme, e) => {
+    const hex = getHex(scheme);
+    const rgb = getRGB(scheme);
+
+    const tempBtn = e.target.getBoundingClientRect();
+    const center = (tempBtn.left + tempBtn.right) / 2;
+    const bottom = tempBtn.bottom - 80;
+    
+    displayPopover({ center, bottom });
+    setInProp(true);
+
+    navigator.clipboard.writeText(hex + rgb);
+  };
+
+  const displayPopover = (coordinates) => {
+    setCssCopied(true);
+    setLocation(coordinates);
+
+  }
+
   useEffect(() => {
     document.title = "Color Schema";
   }, [])
+
+  useEffect(() => {
+    const inPropTimeout = setTimeout(() => {
+        setInProp(false);
+    }, 2000)
+
+    return () => {
+        clearTimeout(inPropTimeout);
+    }
+  }, [inProp])
 
   // Used to create dynamic positioning of color divs
   // Increment 20 to count in map method below.
@@ -89,19 +124,22 @@ const Wrapper = () => {
           </SchemeModeWrapper>
           <ButtonContainer>
             <Button
-              ref={buttonRef}
               onMouseDown={() => toggleButtonStyle("mousedown")}
               onMouseUp={() => toggleButtonStyle("mouseup")}
-            >
-              Generate New Palette
-            </Button>
+              content={"Generate New Palette"}
+            />
           </ButtonContainer>
         </form>
+        <ButtonContainer>
           <Button
-            onClick={() => {copyCSSToClipboard(scheme.colors)}}
-          >
-            Copy To Clipboard
-          </Button>
+            dynamicFunction={(e) => copyCSSToClipboard(scheme.colors, e)}
+            content={"Copy to clipboard"}
+          />
+        </ButtonContainer>
+        <Popover location={location}
+        cssCopied={cssCopied}
+        in={inProp}
+        />
       </SchemeOptionsContainer>
       <section>
         <ColorSchemeWrapper>

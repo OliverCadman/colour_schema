@@ -8,6 +8,7 @@ export const SchemeOptionsContainer = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: relative;
 `;
 
 export const SchemeModeWrapper = styled.div`
@@ -34,7 +35,7 @@ export const ButtonContainer = styled.div`
   margin: 1rem;
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
   padding: 1.35rem;
@@ -79,4 +80,34 @@ export const ColorName = styled.h4`
   font-size: 1.75rem;
 
   color: ${(props) => (props.colorIsDark ? "white" : "black")};
+`;
+
+/* Clipboard Copy Popover */
+
+export const StyledPopover = styled.aside`
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
+  position: absolute;
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 2rem;
+  border-radius: 0.25rem;
+  transition: all 1s ease-in-out;
+
+  &:before {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #fff;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
 `;

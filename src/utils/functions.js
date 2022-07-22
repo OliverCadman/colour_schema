@@ -47,9 +47,8 @@ const getHex = (scheme) => {
     const colors = getCSSValues(scheme);
     const hexComment = "/* HEX Values */\n\n"
     const hex = hexComment + colors.map((color) => {
-        console.log(color);
         return `--${color.value.split(' ')
-        .join('-').toLowerCase()}:${color.hex.value};\n`
+        .join('-').toLowerCase()}: ${color.hex.value};\n`
     }).join('') + "\n";
 
     return hex;
@@ -60,17 +59,10 @@ const getRGB = (scheme) => {
     const rgbComment = "/* RGB Values */\n\n"
     const rgb = rgbComment + colors.map((color) => {
         return `--${color.value.split(' ')
-        .join('-').toLowerCase()}:rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b});\n`
+        .join('-').toLowerCase()}: rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b});\n`
     }).join('');
 
     return rgb;
-};
-
-const copyCSSToClipboard = (scheme) => {
-  const hex = getHex(scheme);
-  const rgb = getRGB(scheme);
-
-  navigator.clipboard.writeText(hex + rgb);
 };
 
 export {
@@ -78,5 +70,6 @@ export {
   isColorDark,
   getSchemeURL,
   getCSSValues,
-  copyCSSToClipboard,
+  getHex,
+  getRGB
 };
