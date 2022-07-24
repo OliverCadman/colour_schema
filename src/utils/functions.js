@@ -43,9 +43,10 @@ const getCSSValues = (scheme) => {
   return values;
 };
 
+// Map over HEX values and generate CSS Markdown.
 const getHex = (scheme) => {
     const colors = getCSSValues(scheme);
-    const hexComment = "/* HEX Values */\n\n"
+    const hexComment = "/* CSS HEX */\n\n"
     const hex = hexComment + colors.map((color) => {
         return `--${color.value.split(' ')
         .join('-').toLowerCase()}: ${color.hex.value};\n`
@@ -54,9 +55,10 @@ const getHex = (scheme) => {
     return hex;
 };
 
+// Map ove RGB values and generate CSS Markdown.
 const getRGB = (scheme) => {
     const colors = getCSSValues(scheme)
-    const rgbComment = "/* RGB Values */\n\n"
+    const rgbComment = "/* CSS RGB */\n\n"
     const rgb = rgbComment + colors.map((color) => {
         return `--${color.value.split(' ')
         .join('-').toLowerCase()}: rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b});\n`

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StyledPopover } from "./Wrapper.styles";
 import "../../index.css";
 import { Transition } from "react-transition-group";
@@ -14,29 +14,36 @@ const transitionStyles = {
   entering: { opacity: 1 },
   entered: { opacity: 1 },
   exiting: { opacity: 0 },
-  exited: { opacity: 0 }
+  exited: { opacity: 0 },
 };
 
-const Popover = ({ location, cssCopied, in: inProp }) => {
-  const popoverRef = useRef();
+const Popover = ({ location, cssCopied, in: inProp, isExploding }) => {
+   const [popoverDimensions, setPopoverDimensions] = useState({});
 
+  const popoverRef = useRef();
+  
+  // Position popover directly below 'Copy to Clipboard' button.
   useEffect(() => {
     const popover = popoverRef.current;
     const { center, bottom } = location;
     popover.style.left = `${center}px`;
     popover.style.top = `${bottom}px`;
+
   }, [location]);
 
+
   return (
-    <Transition in={inProp}>
+    <Transition in={inProp} timeout={500} nodeRef={popoverRef}>
       {(state) => (
-        <StyledPopover cssCopied={cssCopied}
+        <StyledPopover
         ref={popoverRef}
-        style={{
+          cssCopied={cssCopied}
+          style={{
             ...defaultStyle,
-            ...transitionStyles[state]
-        }}>
-          COPIED
+            ...transitionStyles[state],
+          }}
+        >
+          <p>CSS Copied!</p>
         </StyledPopover>
       )}
     </Transition>

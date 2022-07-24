@@ -36,6 +36,7 @@ const Wrapper = () => {
   const [cssCopied, setCssCopied] = useState(false);
   const [location, setLocation] = useState({});
   const [inProp, setInProp] = useState(false);
+  const [isExploding, setIsExploding] = useState(false);
   const buttonRef = useRef();
 
   // onClick handler generates a new color palette
@@ -67,6 +68,7 @@ const Wrapper = () => {
     
     displayPopover({ center, bottom });
     setInProp(true);
+    setIsExploding(true);
 
     navigator.clipboard.writeText(hex + rgb);
   };
@@ -84,6 +86,7 @@ const Wrapper = () => {
   useEffect(() => {
     const inPropTimeout = setTimeout(() => {
         setInProp(false);
+        setIsExploding(false);
     }, 2000)
 
     return () => {
@@ -138,6 +141,7 @@ const Wrapper = () => {
         </ButtonContainer>
         <Popover location={location}
         cssCopied={cssCopied}
+        isExploding={isExploding}
         in={inProp}
         />
       </SchemeOptionsContainer>

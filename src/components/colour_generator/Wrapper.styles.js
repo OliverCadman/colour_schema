@@ -95,6 +95,7 @@ export const StyledPopover = styled.aside`
   padding: 2rem;
   border-radius: 0.25rem;
   transition: all 1s ease-in-out;
+  font-family: 'Poppins', sans-serif;
 
   &:before {
     content: '';
